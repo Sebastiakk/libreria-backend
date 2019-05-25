@@ -36,7 +36,22 @@ public class Book {
 
     public Book() {}
 
+    public Book(Long id, String title, String isbm, String description, String author, Date created) {
+        this.id = id;
+        this.title = title;
+        this.isbm = isbm;
+        this.description = description;
+        this.author = author;
+        this.created = created;
+    }
 
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 
     public Long getId() {
         return id;

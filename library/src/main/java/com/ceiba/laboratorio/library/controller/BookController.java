@@ -31,11 +31,13 @@ public class BookController {
         return  product;
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
     public void save(@Valid @RequestBody Book book){
         bookRepository.save(book);
     }
 
+    @CrossOrigin(origins = "*")
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
     public Book update(@PathVariable Long id, @Valid @RequestBody Book bookRequest){
         return bookRepository.findById(id).map(bookTemp -> {
@@ -43,8 +45,15 @@ public class BookController {
             bookTemp.setDescription(bookRequest.getDescription());
             bookTemp.setTitle(bookRequest.getTitle());
             bookTemp.setCreated(bookRequest.getCreated());
+            bookTemp.setAuthor(bookRequest.getAuthor());
             return bookRepository.save(bookTemp);
         }).orElseThrow(()-> new ResourceException("Libro " + id + " not found"));
+    }
+
+    @CrossOrigin(origins = "*")
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable("id") long id){
+        bookRepository.deleteById(id);
     }
 }
 
